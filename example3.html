@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+       body{
+           margin:0px ;
+       }
+#header{
+    background-color: blue;
+     weight: 100%;
+     height: 100px;
+}
+h1{
+    font-size: xx-large;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
+}
+#container{
+    display: flex;
+   justify-content: center;
+}
+#container>div{
+   
+    text-transform: uppercase;
+    text-align: center;
+    border: 10px solid #cecece;
+    border-radius: 10px; 
+
+}
+    </style>
+    <title>OmdbApi</title>
+</head>
+<body>
+    <!-- header - part -->
+    <div id="header">
+        <h1>OmdbApi</h1>
+
+    </div>
+<input type="text"  id="movienames" /> 
+<button id="search" onclick="getData()">Search</button>
+<div id="container"></div>
+</body>
+</html>
+<script>
+    //  http://www.omdbapi.com/?i=tt3896198&apikey=81696805
+    var container = document.getElementById("container");
+    var API_KEY = "81696805";
+async function  getData(){
+    let movie = document.getElementById("movienames").value;
+    let res = await fetch(`http://www.omdbapi.com/?apikey=${API_KEY}&t=${movie}`);
+    let data = await res.json();
+          console.log(data);
+          displayData(data);
+}
+
+//    getData();
+
+
+  
+
+function  displayData(data){
+ //    container.innerHTML = "";
+      var displayCard = document.createElement("div");
+      var image = document.createElement("img");
+      image.src = data.Poster;
+      var title = document.createElement("p");
+      title.textContent = data.Title;
+      
+      displayCard.append(image,title);
+      container.append(displayCard);
+}      
+</script>
